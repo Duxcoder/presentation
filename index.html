@@ -1,40 +1,380 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+	<title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<link rel="stylesheet" href="dist/reset.css" />
+	<link rel="stylesheet" href="dist/reveal.css" />
+	<link rel="stylesheet" href="dist/theme/moon.css" />
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css" />
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1 class="r-fit-text">
+					Canvas - the power of drawing <br />
+					and animating web applications
+				</h1>
+			</section>
+			<section>
+				<h2>History</h2>
+				<section>
+					<p>The canvas element was first introduced by Apple in 2004.</p>
+					<p class="fragment fade-up">1. Advancements in Web Technologies</p>
+					<p class="fragment fade-up">2. Dynamic Web Applications</p>
+					<p class="fragment fade-up">3. Improved Browser Capabilities</p>
+					<p class="fragment fade-up">4. Canvas Adoption</p>
+				</section>
+			</section>
+			<section>
+				<h2>Introduction</h2>
+				<section>
+					<h3>What is Canvas?</h3>
+					<pre><code style="text-align: center" class="hljs html wrap">&lt;canvas&gt;&lt;/canvas&gt;</code></pre>
+					<p class="fragment fade-up">
+						<span style="color: #eee8d5">The canvas element</span>
+						is part of HTML5 and allows for dynamic, scriptable rendering of
+						2D shapes and bitmap images.
+					</p>
+				</section>
+				<section>
+					<h3>Drawing Context</h3>
+					<p>
+						Canvas provides two drawing contexts:
+					<p>
+						<span style="display: inline" class="fragment fade-up">2D</span>
+						<span style="display: inline" class="fragment fade-up">and</span>
+						<span style="display: inline" class="fragment fade-up">WebGL (3D).</span>
+					</p>
+					</p>
+					<p class="fragment fade-up">
+						The 2D context is suitable for simple 2D graphics, while WebGL
+						provides powerful tools for creating 3D scenes and effects.
+					</p>
+				</section>
+			</section>
+			<section>
+				<h2>How to use Canvas?</h2>
+				<section>
+					<pre><code class="hljs js wrap" data-trim data-line-numbers="|3-7|8|10-14|16-17|16,18|20-23">
+
+	function drawRectangle(container: HTMLElement) {
+
+	// Get the drawing context for the canvas
+		const canvas = document.createElement("canvas");
+		canvas.style.width = '400px';
+		canvas.style.height = '200px';
+		canvas.style.border = '2px solid white';
+		const ctx = canvas.getContext("2d");
+
+	// Set parameters for the rectangle
+		const x = 50; // x-coordinate of the top-left corner
+		const y = 50; // y-coordinate of the top-left corner
+		const width = 150; // width of the rectangle
+		const height = 100; // height of the rectangle
+
+	// Draw the rectangle
+		ctx.fillStyle = "blue"; // Set the fill color of the
+		ctx.fillRect(x, y, width, height); // Use the fillRect()
+
+		container?.append(canvas);
+	}
+
+	drawRectangle(document.body);
+					</code></pre>
+				</section>
+				<section id="result-code1">
+					<script>
+						const container = document.querySelector('#result-code1')
+						function drawRectangle(container) {
+							const canvas = document.createElement("canvas");
+							canvas.setAttribute('width', '250px');
+							canvas.setAttribute('height', '200px');
+							canvas.style.border = '2px solid white';
+							const ctx = canvas.getContext("2d");
+
+							const x = 50;
+							const y = 50;
+							const width = 150;
+							const height = 100;
+
+							ctx.fillStyle = "blue";
+							ctx.fillRect(x, y, width, height);
+							container?.append(canvas);
+						}
+
+						drawRectangle(container);
+					</script>
+
+				</section>
+				<section>
+					<pre><code class="hljs js wrap" data-trim data-line-numbers="|3-7|9-11|13|14|15-19|21-23">
+	function drawCircle(container: HTMLElement) {
+
+		const canvas = document.createElement("canvas");
+		canvas.setAttribute('width', '250px');
+		canvas.setAttribute('height', '200px');
+		canvas.style.border = '2px solid white';
+		const ctx = canvas.getContext("2d");
+
+		const centerX = canvas.width / 2;
+		const centerY = canvas.height / 2;
+		const radius = 50;
+
+		ctx.beginPath();
+		ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+		ctx.fillStyle = "red";
+		ctx.fill();
+		ctx.strokeStyle = "orange";
+		ctx.lineWidth = 2;
+		ctx.stroke();
+
+		container?.append(canvas);
+	}
+	drawCircle(document.body);
+									</code></pre>
+				</section>
+				<section id="result-code2">
+					<script>
+						const container2 = document.querySelector('#result-code2')
+						function drawCircle(container) {
+							const canvas = document.createElement("canvas");
+							canvas.setAttribute('width', '250px');
+							canvas.setAttribute('height', '200px');
+							canvas.style.border = '2px solid white';
+							const ctx = canvas.getContext("2d");
+
+							const centerX = canvas.width / 2;
+							const centerY = canvas.height / 2;
+							const radius = 50;
+
+							ctx.beginPath();
+							ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+							ctx.fillStyle = "blue";
+							ctx.fill();
+							ctx.strokeStyle = "green";
+							ctx.lineWidth = 10;
+							ctx.stroke();
+
+							container?.append(canvas);
+						}
+						drawCircle(container2);
+					</script>
+				</section>
+				<section>
+					<pre><code class="hljs js wrap" data-trim data-line-numbers="|10|11|14|16-21|23-28|30-32">
+	function drawLines(container: HTMLElement) {
+
+		const canvas = document.createElement("canvas");
+		canvas.setAttribute('width', '250px');
+		canvas.setAttribute('height', '200px');
+		canvas.style.border = '2px solid white';
+		const ctx = canvas.getContext("2d");
+
+		ctx.beginPath();
+		ctx.moveTo(50, 50);
+		ctx.lineTo(200, 50);
+		ctx.strokeStyle = "blue";
+		ctx.lineWidth = 3;
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(50, 100);
+		ctx.lineTo(200, 100);
+		ctx.strokeStyle = "green";
+		ctx.lineWidth = 5;
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(50, 150);
+		ctx.lineTo(200, 150);
+		ctx.strokeStyle = "orange";
+		ctx.lineWidth = 7;
+		ctx.stroke();
+
+		container?.append(canvas);
+	}
+	drawLines(document.body);
+													</code></pre>
+				</section>
+				<section id="result-code3">
+					<script>
+						const container3 = document.querySelector('#result-code3')
+						function drawLines(container) {
+							const canvas = document.createElement("canvas");
+							canvas.setAttribute('width', '250px');
+							canvas.setAttribute('height', '200px');
+							canvas.style.border = '2px solid white';
+							const ctx = canvas.getContext("2d");
+
+							ctx.beginPath();
+							ctx.moveTo(50, 50);
+							ctx.lineTo(200, 50);
+							ctx.strokeStyle = "blue";
+							ctx.lineWidth = 3;
+							ctx.stroke();
+
+							ctx.beginPath();
+							ctx.moveTo(50, 100);
+							ctx.lineTo(200, 100);
+							ctx.strokeStyle = "green";
+							ctx.lineWidth = 5;
+							ctx.stroke();
+
+							ctx.beginPath();
+							ctx.moveTo(50, 150);
+							ctx.lineTo(200, 150);
+							ctx.strokeStyle = "orange";
+							ctx.lineWidth = 7;
+							ctx.stroke();
+							container?.append(canvas);
+						}
+						drawLines(container3);
+					</script>
+				</section>
+			</section>
+			<section>
+				<h2>Animation on Canvas</h2>
+				<section>
+					<pre><code class="hljs js wrap" data-trim data-line-numbers="|1-5|8|10|11|22-26|28-30">
+	const canvas = document.createElement("canvas");
+	canvas.setAttribute('width', '250px');
+	canvas.setAttribute('height', '200px');
+	canvas.style.border = '2px solid white';
+	document.body.append(canvas);
+
+	const ctx = canvas.getContext("2d");
+	let x = 0;
+
+	function animateCircle() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		const centerX = x;
+		const centerY = canvas.height / 2;
+		const radius = 50;
+
+		ctx.beginPath();
+		ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+		ctx.fillStyle = "blue";
+		ctx.fill();
+
+		x++
+
+		if (x > canvas.width) {
+			x = 0;
+		}
+
+		requestAnimationFrame(animateCircle);
+	}
+	animateCircle();
+					</code></pre>
+				</section>
+				<section id="result-code-animate">
+					<script>
+						const container4 = document.querySelector('#result-code-animate')
+						let x = 0;
+						const canvas = document.createElement("canvas");
+						canvas.setAttribute('width', '250px');
+						canvas.setAttribute('height', '200px');
+						canvas.style.border = '2px solid white';
+						const ctx = canvas.getContext("2d");
+						container4?.append(canvas);
+
+						function animateCircle() {
+							ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+							const centerX = x;
+							const centerY = canvas.height / 2;
+							const radius = 50;
+
+							ctx.beginPath();
+							ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+							ctx.fillStyle = "blue";
+							ctx.fill();
+
+							x++
+
+							if (x > canvas.width) {
+								x = 0;
+							}
+
+							requestAnimationFrame(animateCircle);
+						}
+						animateCircle();
+					</script>
+				</section>
+			</section>
+			<section>
+				<h2>Benefits of Using Canvas</h2>
+				<section>
+					<p>1. High Performance</p>
+					<p class="fragment fade-up">2. Interactive Content</p>
+					<p class="fragment fade-up">3. No Plugins Required</p>
+					<p class="fragment fade-up">4. Cross-Platform Compatibility</p>
+					<p class="fragment fade-up">5. Real-Time Updates</p>
+				</section>
+			</section>
+			<section>
+				<h2>Limitations of Canvas</h2>
+				<section>
+					<p>1. Client-Side Only</p>
+					<p class="fragment fade-up">2. No Built-in Interactivity</p>
+					<p class="fragment fade-up">3. Lack of Accessibility</p>
+					<p class="fragment fade-up">4. Performance for Complex Animations</p>
+					<p class="fragment fade-up">5. Browser Compatibility</p>
+				</section>
+			</section>
+			<section>
+				<h2>Conclusion</h2>
+				<section>
+					<img class="r-frame" style="background: rgba(255,255,255,0.1);" data-src="./first.png" alt="canvas images"
+						width="600" height="438">
+				</section>
+				<section>
+					<h3>Links</h3>
+					<ul>
+						<li>
+							<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">
+								Canvas API
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">
+								Canvas Rendering Context 2D
+							</a>
+						</li>
+					</ul>
+				</section>
+			</section>
+
+
+
 		</div>
+	</div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+		});
+	</script>
+</body>
+
 </html>
